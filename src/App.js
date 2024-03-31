@@ -1,23 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import { useDispatch, useSelector } from 'react-redux';
+import Box from './component/Box';
+import GrandsonBox from './component/GrandsonBox';
 
 function App() {
+  const count = useSelector(state=>state.count);
+  let id = useSelector(state=>state.id);
+  let password = useSelector(state=>state.password);
+  const dispatch = useDispatch();
+
+  const increase = () => {
+    dispatch({type: "INCREMENT", plyload: {num: 5}});   
+  };
+
+  const decrease = () => {
+    dispatch({type: "DECREMENT", plyload: {num: 2}});   
+  };
+  
+  const login = () => {
+    dispatch({ type: "LOGIN", payload: {id: "pattorney", password: "123"} })
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>ID : {id}</h1>
+      <h1>PW : {password}</h1>
+      <h1>{count}</h1>
+      <button onClick={increase}>5만큼 증가</button>
+      <button onClick={decrease}>2만큼 감소</button>
+      <button onClick={login}>로그인</button>
+      <Box />
+      <GrandsonBox />
     </div>
   );
 }
